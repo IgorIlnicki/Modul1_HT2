@@ -4,7 +4,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV LANG C.UTF-8
 
-RUN curl -sSL https://install.python-poetry.org | sh
+# RUN curl -sSL https://install.python-poetry.org | sh
 RUN apt-get update && apt-get install -y git
 
 ENV APP_HOME /app
