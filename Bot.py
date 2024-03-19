@@ -1,6 +1,6 @@
 from collections import UserDict
 from functools import reduce
-import pickle
+import json
 import datetime as dt
 import re
 from datetime import datetime as dtdt
@@ -269,23 +269,20 @@ class AddressBook(UserDict):  # Клас для зберігання та упр
 
     def save_to_file(self, filename):
         with open(filename, "wb") as f:
-            pickle.dump(self.data1, f)
+            json.dump(self.data1, f, indent=4)
 
     def checit_pic(self, filename):
-        if os.path.exists("A1.json") == False:
-            self.data1 = []
-            print(f"Файл пустий")
-            with open("A1.json", 'wb') as f:
-                pickle.dump(self.data1, f)
-        else:
-            with open(filename, "rb") as f:
-                self.data1 = pickle.load(f)
+        with open(filename, 'r+') as file:
+            file_data = file.read().strip()
+            if not file_data: # якщо файл пустий
+                # print(f" Файл пустий")
+                kk = False
+            else:
+                self.data1 = json.loads(file_data)
+                # print (f'   data1 = {self.data1}')
                 kk = True
             return kk
 
-    # def erase_pic(self, filename):
-    #     with open(filename, 'w') as file:
-    #         pickle.dump([], file)
 
 
 def parse_input(user_input):  # ввод команди та аргументів
