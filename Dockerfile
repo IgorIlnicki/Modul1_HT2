@@ -7,9 +7,11 @@ ENV LANG C.UTF-8
 RUN curl -sSL https://install.python-poetry.org | sh
 RUN apt-get update && apt-get install -y git
 
-WORKDIR /app
-COPY . /app
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . .
+RUN pip install -r requirements.txt
+EXPOSE 5000
+ENTRYPOINT ["python", "Bot.py"]
 
-RUN poetry install
 
-CMD ["python", "Bot.py"]
